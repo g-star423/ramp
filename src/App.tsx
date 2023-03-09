@@ -84,7 +84,7 @@ export function App() {
           {transactions !== null && (
             <button
               className="RampButton"
-              disabled={paginatedTransactionsUtils.loading}
+              disabled={paginatedTransactionsUtils.loading || paginatedTransactions?.nextPage === null} // added logic to see if we're at end of pages
               onClick={async () => {
                 await loadAllTransactions()
               }}
