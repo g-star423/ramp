@@ -89,6 +89,7 @@ We don't have a real API for this challenge, so we added some utilities to simul
 **Expected:** Clicking the checkbox toggles its value
 
 **Actual:** Nothing happens
+GS NOTE - changed line 96 to "position: absolute" to fix this bug.
 
 # Bug 3: Cannot select _All Employees_ after selecting an employee
 
@@ -102,6 +103,8 @@ We don't have a real API for this challenge, so we added some utilities to simul
 **Expected:** All transactions are loaded
 
 **Actual:** The page crashes
+
+GS NOTE - added extra logic in App.tsx after line 67 to account for no employee ID.
 
 # Bug 4: Clicking on View More button not showing correct data
 
@@ -141,7 +144,7 @@ _This bug has 2 wrong behaviors that will be fixed with the same solution_
 **Expected:** The employees filter should not show "Loading employees..." after clicking **View more**, as employees are already loaded
 
 **Actual:** The employees filter shows "Loading employees..." after clicking **View more** until new transactions are loaded.
-
+GS NOTE - FIXED
 # Bug 6: View more button not working as expected
 
 _This bug has 2 wrong behaviors that can be fixed with the same solution. It's acceptable to fix with separate solutions as well._
