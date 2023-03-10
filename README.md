@@ -91,6 +91,8 @@ We don't have a real API for this challenge, so we added some utilities to simul
 
 **Actual:** Nothing happens
 
+### GS NOTE - checkbox is set to "display: none" - added onclick listener to the div that is displayed to initiate the change
+
 # Bug 3: Cannot select _All Employees_ after selecting an employee
 
 **How to reproduce:**
@@ -164,6 +166,8 @@ _This bug has 2 wrong behaviors that can be fixed with the same solution. It's a
 **Expected:** The **View more** button is not be visible when transactions are filtered by user, because that is not a paginated request.
 
 **Actual:** The **View more** button is visible even when transactions are filtered by employee. _You can even click **View more** button and get an unexpected result_
+
+### GS NOTE - Fixed this by adding logic to display "view more" button only if there isn't an employee id selected
 
 ##### Part 2
 

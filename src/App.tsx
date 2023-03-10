@@ -14,6 +14,7 @@ export function App() {
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
   const [isLoading, setIsLoading] = useState(false)
   const [isEmployeeLoading, setIsEmployeeLoading] = useState(false) // added a separate state for employees loading
+  const [singleEmployee, setSingleEmployee] = useState(false)
 
   const transactions = useMemo(
     () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
@@ -69,8 +70,10 @@ export function App() {
             }
             // need to load all transactions employee id is ""
             if (newValue.id === "") {
+              setSingleEmployee(false)
               await loadAllTransactions()
             } else {
+              setSingleEmployee(true)
               await loadTransactionsByEmployee(newValue.id)
             }
           }}
@@ -81,7 +84,7 @@ export function App() {
         <div className="RampGrid">
           <Transactions transactions={transactions} />
 
-          {transactions !== null && (
+          {transactions !== null && !singleEmployee && (
             <button
               className="RampButton"
               disabled={paginatedTransactionsUtils.loading || paginatedTransactions?.nextPage === null} // added logic to see if we're at end of pages

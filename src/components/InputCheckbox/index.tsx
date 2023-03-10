@@ -1,18 +1,15 @@
 import classNames from "classnames"
-import { useRef } from "react"
+import { useSelect } from "downshift"
+import { useRef, useState } from "react"
 import { InputCheckboxComponent } from "./types"
 
-export const InputCheckbox: InputCheckboxComponent = ({ id, checked, disabled, onChange }) => {
+export const InputCheckbox: InputCheckboxComponent = ({ id, checked = false, disabled, onChange }) => {
   const { current: inputId } = useRef(`RampInputCheckbox-${id}`)
-
-  function test() {
-    console.log('testtt');
-
-  }
 
   return (
     <div className="RampInputCheckbox--container" data-testid={inputId}>
       <label
+        onClick={() => onChange(!checked)} // the input is set to "display: none" - adding an onclick listener to the div instead.
         className={classNames("RampInputCheckbox--label", {
           "RampInputCheckbox--label-checked": checked,
           "RampInputCheckbox--label-disabled": disabled,
@@ -24,7 +21,8 @@ export const InputCheckbox: InputCheckboxComponent = ({ id, checked, disabled, o
         className="RampInputCheckbox--input"
         checked={checked}
         disabled={disabled}
-        onChange={() => onChange(!checked)}
+        readOnly={true}
+      // onChange={() => onChange(!checked)}
       />
     </div>
   )
