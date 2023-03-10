@@ -14,7 +14,7 @@ export function App() {
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
   const [isLoading, setIsLoading] = useState(false)
   const [isEmployeeLoading, setIsEmployeeLoading] = useState(false) // added a separate state for employees loading
-  const [singleEmployee, setSingleEmployee] = useState(false)
+  const [displayPagination, setDisplayPagination] = useState(true)
 
   const transactions = useMemo(
     () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
@@ -45,7 +45,7 @@ export function App() {
     if (employees === null && !employeeUtils.loading) {
       loadAllTransactions()
     }
-  }, [employeeUtils.loading, employees, loadAllTransactions])
+  }, [employeeUtils.loading, employees, loadAllTransactions, loadTransactionsByEmployee]) // added employee GET function as dependency
 
   return (
     <Fragment>
@@ -70,11 +70,11 @@ export function App() {
             }
             // need to load all transactions employee id is ""
             if (newValue.id === "") {
-              setSingleEmployee(false)
-              await loadAllTransactions()
+              setDisplayPagination(true)
+              await loadAllTransactions() // persistence issue is upstream from here
             } else {
-              setSingleEmployee(true)
-              await loadTransactionsByEmployee(newValue.id)
+              setDisplayPagination(false)
+              await loadTransactionsByEmployee(newValue.id) // persistence issue is upstream from here
             }
           }}
         />
@@ -84,7 +84,7 @@ export function App() {
         <div className="RampGrid">
           <Transactions transactions={transactions} />
 
-          {transactions !== null && !singleEmployee && (
+          {transactions !== null && displayPagination && (
             <button
               className="RampButton"
               disabled={paginatedTransactionsUtils.loading || paginatedTransactions?.nextPage === null} // added logic to see if we're at end of pages

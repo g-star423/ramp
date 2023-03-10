@@ -16,10 +16,10 @@ export function useCustomFetch() {
         const cacheKey = getCacheKey(endpoint, params)
         const cacheResponse = cache?.current.get(cacheKey)
 
-        if (cacheResponse) {
-          const data = JSON.parse(cacheResponse)
-          return data as Promise<TData>
-        }
+        // if (cacheResponse) { // The cache logic isn't quite correct - commenting it out would be a quick fix to get back online. Long Term, the cache should be configured to work correctly.
+        //   const data = JSON.parse(cacheResponse)
+        //   return data as Promise<TData>
+        // }
 
         const result = await fakeFetch<TData>(endpoint, params)
         cache?.current.set(cacheKey, JSON.stringify(result))
