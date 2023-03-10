@@ -79,6 +79,7 @@ We don't have a real API for this challenge, so we added some utilities to simul
 **Expected:** Options dropdown moves with its parent input as you scroll the page
 
 **Actual:** Options dropdown stays in the same position as you scroll the page, losing the reference to the select input
+### GS NOTE - changed line 96 to "position: absolute" to fix this bug.
 
 # Bug 2: Approve checkbox not working
 
@@ -89,7 +90,6 @@ We don't have a real API for this challenge, so we added some utilities to simul
 **Expected:** Clicking the checkbox toggles its value
 
 **Actual:** Nothing happens
-GS NOTE - changed line 96 to "position: absolute" to fix this bug.
 
 # Bug 3: Cannot select _All Employees_ after selecting an employee
 
@@ -104,7 +104,7 @@ GS NOTE - changed line 96 to "position: absolute" to fix this bug.
 
 **Actual:** The page crashes
 
-GS NOTE - added extra logic in App.tsx after line 67 to account for no employee ID.
+### GS NOTE - added extra logic in App.tsx after line 67 to account for no employee ID.
 
 # Bug 4: Clicking on View More button not showing correct data
 
@@ -116,6 +116,8 @@ GS NOTE - added extra logic in App.tsx after line 67 to account for no employee 
 **Expected:** Initial transactions plus new transactions are shown on the page
 
 **Actual:** New transactions replace initial transactions, losing initial transactions
+
+### GS NOTE - instead of the new array of data replacing the old one, it now concatenates
 
 # Bug 5: Employees filter not available during loading more data
 
@@ -144,7 +146,9 @@ _This bug has 2 wrong behaviors that will be fixed with the same solution_
 **Expected:** The employees filter should not show "Loading employees..." after clicking **View more**, as employees are already loaded
 
 **Actual:** The employees filter shows "Loading employees..." after clicking **View more** until new transactions are loaded.
-GS NOTE - FIXED
+
+### GS NOTE - added new state for loading of employees. Long-term, I would not have the employees loading every time new transactions are requested.
+
 # Bug 6: View more button not working as expected
 
 _This bug has 2 wrong behaviors that can be fixed with the same solution. It's acceptable to fix with separate solutions as well._
@@ -172,6 +176,8 @@ _This bug has 2 wrong behaviors that can be fixed with the same solution. It's a
 **Expected:** When you reach the end of the data, the **View More** button disappears and you are not able to request more data.
 
 **Actual:** When you reach the end of the data, the **View More** button is still showing and you are still able to click the button. If you click it, the page crashes.
+
+### GS NOTE - Fixed this by adding logic to see if at end of page OR loading to make "View More" inactive
 
 # Bug 7: Approving a transaction won't persist the new value
 
